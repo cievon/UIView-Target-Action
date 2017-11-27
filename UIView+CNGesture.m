@@ -34,7 +34,7 @@ static char const * kLongPressCancelActionKey = "kLongPressCancelActionKey";
     [self addGestureRecognizer:tap];
     
     objc_setAssociatedObject(self, kSimpleTapRecognizerKey, tap, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    objc_setAssociatedObject(self, kTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kTargetKey, target, OBJC_ASSOCIATION_ASSIGN);
     objc_setAssociatedObject(self, kTapActionKey, NSStringFromSelector(action), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -44,7 +44,7 @@ static char const * kLongPressCancelActionKey = "kLongPressCancelActionKey";
     dbTap.numberOfTapsRequired = 2;
     [self addGestureRecognizer:dbTap];
     
-    objc_setAssociatedObject(self, kTargetKey, target, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kTargetKey, target, OBJC_ASSOCIATION_ASSIGN);
     objc_setAssociatedObject(self, kDBActionKey, NSStringFromSelector(action), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     
     UITapGestureRecognizer *simpleTapGesture = objc_getAssociatedObject(self, kSimpleTapRecognizerKey);
@@ -58,6 +58,8 @@ static char const * kLongPressCancelActionKey = "kLongPressCancelActionKey";
     
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGesture:)];
     [self addGestureRecognizer:longPress];
+    
+    objc_setAssociatedObject(self, kTargetKey, target, OBJC_ASSOCIATION_ASSIGN);
     
     switch (event) {
         case CNLongPressEventsStart:
